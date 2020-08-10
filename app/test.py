@@ -67,7 +67,8 @@ ifiles = [
 	'sample/guam.jpg',
 	'sample/pool.jpg',
 	'sample/car.jpg',
-]
+	'D:\car.png',
+	]
 for ifile in ifiles:
 	print('edge: ' + ifile)
 	fname, ext = os.path.splitext(ifile)
