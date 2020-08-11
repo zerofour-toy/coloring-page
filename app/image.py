@@ -7,7 +7,10 @@ class ImageConverter:
 
 	def edged_images(self, image):
 		sketch = self._sketch_image(image)
-		return self._histogram(sketch, 8)
+		images = []
+		for clip_limit in self.clip_limits:
+			images.append(self._histogram(sketch, clip_limit))
+		return images
 
 	def _sketch_image(self, image):
 		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

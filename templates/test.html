@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<title>Test</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+	<!-- Favicons -->
+	<link href="static/img/favicon.png" rel="icon">
+	<link href="static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+	<!-- Vendor CSS Files -->
+	<link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<style>
+		img {
+			max-height: 700px;
+			max-width: 700px;
+		}
+	</style>
+</head>
+<body>
+	<p>Test</p>
+
+	<form id="upload" action="/api/images" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" />
+		<input type="button" id="btn" value="전송" />
+	</form>
+
+	<img id="imageOrigin" alt="origin">
+	<img id="imageConvert" alt="convert">
+
+	<!-- Vendor JS Files -->
+	<script src="static/vendor/jquery/jquery.min.js"></script>
+	<script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+			$(function() {
+				$("#btn").click(function() {
+					var formData = new FormData();
+					formData.append("file", $("input[name=file]")[0].files[0]);
+					$.ajax({
+						url: '/api/images',
+						data: formData,
+						processData: false,
+						contentType: false,
+						type: 'POST',
+						success: function(data) {
+							var orig = data.origin;
+							var image = data.converts[3];
+							$("#imageOrigin").attr("src", "data:"+orig.contentType+";base64,"+orig.content);
+							$("#imageConvert").attr("src", "data:"+image.contentType+";base64,"+image.content);
+						}
+					});
+				});
+			});
+
+	</script>
+</body>
+</html>
